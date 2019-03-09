@@ -33,7 +33,7 @@ def nullBetaModel(data,priorAlphaBeta = [1.,1.]):
     binarize = [ 1 if p>0 else 0 for p in data] 
     if N==0:
         return priorAlphaBeta[1]/sum(priorAlphaBeta)
-    MAP = sum(binarize+priorAlphaBeta[1])/(N+sum(priorAlphaBeta))
+    MAP = (sum(binarize)+priorAlphaBeta[1])/(N+sum(priorAlphaBeta))
     return MAP
 
 def addPrediction2AllResults(results, state, county, year, month,target,probPresent):
@@ -67,4 +67,4 @@ if __name__ == "__main__":
             results = addPrediction2AllResults(results, state, county, year, predictedMonth, target, probPresent)
 
     forecastData = pd.DataFrame(results)
-    forecastData.to_csv('./nullBetaForecast.csv')
+    forecastData.to_csv('./nullBetaForecast.csv',index=None)

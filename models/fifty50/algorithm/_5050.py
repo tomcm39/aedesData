@@ -28,22 +28,6 @@ def reComputeTrainingData(trainingData, monthData):
         trainingData = monthData
     return trainingData
 
-def bayesianMM(data, transitionPrior = np.array([[1,1],[1,1]]), statePrior = np.array([1,1]) ):
-    N = len(data)
-    binarize = [ 1 if p>0 else 0 for p in data] 
-    if N==0:
-        return (statePrior/statePrior.sum())[1]
-    elif N==1:
-        statePrior[binarize]+=1
-        return (statePrior/statePrior.sum())[1]
-    else:
-        transitionMatrix = transitionPrior.copy()
-        for (past,present) in zip(binarize,binarize[1:]):
-            transitionMatrix[past,present]+=1
-        S = transitionMatrix.sum(1)
-        transitionMatrix = (transitionMatrix.T/S).T
-        return transitionMatrix[present,1] # return prob of presence
-
 def addPrediction2AllResults(results, state, county, year, month,target,probPresent):
     results['location'].append("{:s}-{:s}".format(state,county))
     results['year'].append('{:d}'.format(year))
@@ -69,10 +53,10 @@ if __name__ == "__main__":
             trainingData   = reComputeTrainingData(trainingData, monthData)
             trainingValues = trainingData['{:s}'.format(target)].values
 
-            probPresent = bayesianMM(trainingValues, transitionPrior = np.array([[1,1],[1,1]]), statePrior = np.array([1,1]))
+            probPresent = 0.50
             predictedMonth = month+1 if month<12 else -1
             
             results = addPrediction2AllResults(results, state, county, year, predictedMonth, target, probPresent)
 
     forecastData = pd.DataFrame(results)
-    forecastData.to_csv('./bayesianMarkovModelForecast.csv',index=None)
+    forecastData.to_csv('./_5050.csv',index=None)
