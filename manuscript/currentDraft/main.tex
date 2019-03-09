@@ -1,0 +1,179 @@
+%!TEX TS-program = pdflatexmk
+\documentclass[onecolumn,secnumarabic,amssymb, nobibnotes, aps, pr,superscriptaddress]{revtex4-1}
+
+
+% common packages
+% ----------------------------------------
+\usepackage{amsmath,amssymb}
+\usepackage{stackengine,graphicx}
+\usepackage{natbib}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{bbm}
+\usepackage{booktabs}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{collectbox}
+\usepackage{bbm}
+\usepackage{capt-of}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=black
+}
+\usepackage{lineno}
+\linenumbers
+
+% project-specific packages
+% ----------------------------------------
+\def \ew{\textbf{EW}}
+\def \cw{\textbf{CW}}
+\def \ttw{\textbf{TTW}}
+
+% common latex functions
+% ----------------------------------------
+\def\l{\left}
+\def\r{\right}
+
+\newcommand{\f}{\frac}
+\newcommand{\mean}[1]{ \l<#1\r> }
+\newcommand{\statMean}[1]{ \mathbbm{E}\l(#1\r) }
+
+\def\dx{\hspace{5mm}}
+
+% project-specific functions
+% ----------------------------------------
+
+
+
+% editorial and revision functions
+% ----------------------------------------
+\def\tcm#1{{\small\color{Gray}\textbf{[tcm: #1]}}} 
+\def\ngr#1{{\small\color{Red}\textbf{[ngr: #1]}}} 
+
+\def\todo#1{{\color{blue}\textbf{[TODO: #1]}}}
+\def\putin#1{{\color{blue}\textbf{[PUTIN: #1]}}}
+\def\del#1{{\color{Green}\textbf{[#1]}}}
+\def\comment#1{{\color{red}\textbf{[Comment: #1]}}}
+
+
+% misc functions 
+% ----------------------------------------
+\newcommand{\n}[1]{ {\tiny\textbf{\underline{\textit{#1}}}}}
+
+\newcommand{\rowgroup}[1]{\hspace{-1em}#1}
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{\ensuremath{#2}}}%
+\newcommand{\fb}[2]{\framebox(#1,20){#2}}
+
+
+\newcommand{\umassBiostat}{Department of Biostatistics and Epidemiology, School of Public Health and Health Sciences, University of Massachusetts—Amherst, Amherst, Massachusetts, United States of America}
+
+
+\date{\today} 
+
+\begin{document}
+
+\title{A Forward Backward Ensemble algorithm predicting Unites States Aedes Egyti and Albopictus}
+
+\author{Thomas~McAndrew, Ph.D}
+\email{mcandrew@umass.edu}
+\affiliation{\umassBiostat}
+
+
+\author{Nicholas~G.~Reich, Ph.D}
+\email{nick@schoolph.umass.edu}
+\affiliation{\umassBiostat}
+
+
+\begin{abstract}
+
+\end{abstract}
+  
+\maketitle
+
+\section{Introduction}
+Aedes Egyti and Aedes Albopictus, two species of mosquito, carry a cocktail of diseases: Zika, Chikayunga, yellow and dengue fever, and account for nearly $10,000$ deaths every year worldwide~\cite{}.
+Having a short flight range (only $500$ meters), these mosquitos have spread to the South and Pacific coasts of the Unites states through shipping containers~\cite{}, multiplying in moist temperate climates where increased urbanization has furnished new breeding grounds~\cite{}.
+Though biological~\cite{}, chemical~\cite{}, and agricultural~\cite{} solutions exist to prevent mosquito bites, entomological surveillance of Egyti and Albopictus is lacking, leaving public health officials---capable of policy change and informing the public---in the dark.
+
+Through their Epidemic Prediction Initiative, the CDC has stepped forward, offering public data~\cite{} of Egyti and Albopictus incidence in the Unites States.
+The CDC has called on the public to build probabilistic models and submit predictive forecasts of Aedes Egyti and Albopictus, a strategy that has worked in the past with other infectious diseases~\cite{}.
+Dengue~\cite{} and Influenza~\cite{}, Aedes is the $3$rd CDC-hosted challenge---aimed at better prediction of disease burden and translating these predictions into public health decisions.
+
+Past models of Aedes transmission concentrate on .
+
+
+Our novel Forward Backward Ensemble shows promising results
+
+
+\section{Methods}
+
+
+
+\subsection{Data}
+
+\subsubsection{Aedes Aegypt and Albopictus}
+The CDC's \textit{Aedes Forecasting Challenge 2019} has provided county-level data on mosquito trapping for California~($41$ counties), Florida~($25$ counties), New Jersey~($8$ counites), New York~($8$ counties), North Carolina~($5$ counties), Wisconsin~($3$ counties), Texas~($3$ counties), and Connecticut~($2$ counties)---locations at high-risk for Aedes.
+$X$ states have recorded surveillance data from $2013$ to present $X$ from $XX$ to present, and $X$ and $X$ have recorded data from $2017$ to present.
+While this training data is finalized, the upcoming ``test'' season will not be.
+Forecasting models will need to contend, not only with understanding the pattern of Aedes incidence, but reporting delays--- the CDC revising past data. 
+
+Counties reported the number (and type) of baited mosquito traps, number of nights traps were set and number of times traps were collected, and two scales for identifying Aegypti and Albopictus: number of collections that contained Aegypti, Albopictus, and total, individual number of mosquitoes collected.
+Because the CDC is primarily interested on presence or absence of Aedes, we consider the primary unit of analysis (referred to as level $1$ in multilevel modeling) the tuple (State, county, trap type, Aedes type, presence of Aedes), defining presence of Aedes
+\begin{equation}
+ \text{Presence}\l( \text{state, county, Aedes type} \r) = \mathbbm{1}\l( \sum_{t \in \text{trap type}} \text{num. collections}(t) > 0 \r),
+\end{equation}
+or any positive number of mosquites/collections.
+The primary forecasting challenge detecting the future presence of Aedes, the CDC recommends additional environmental data correlated with mosquito patterns.   
+
+\subsubsection{Climate and meteorological data}
+
+
+\subsubsection{Urbanization and socioeconomic data}
+
+
+\subsection{Null forecasting models}
+
+Null models represent the simplest ways to exploit the training data for forecasting.
+Models trained and are classified: (i) on only the Aedes data, called \textit{single-stream models}, (ii) on the Aedes and meteorological data, called (\textit{climate models}, (iii) on Aedes and spatial data~\textit{spatial models} and (iv) on Aedes and socioeconomic data~\textit{socioeconomic models}.
+Meant to be bested, novel models under-performing the following should signal poor performance.
+
+\subsubsection{$50/50$ model}
+The simplest single-stream model, the $50/50$ model forecasts---for every state, county, and month--- a $50\%$ chance of Aedes (Egypti and Albopictus) presence.
+We can also precompute this model's logscore, always forecasting a $50\%$ chance of Aedes presence.
+A logscore of approximately $-0.693$, this model represents the most uncertain forecast, always equating presence to a coin-flip, and also the most naive forecast, ignoring all training data.
+
+\subsubsection{Beta model}
+The Beta model improves over the single-stream $50/50$ model, computing a proportion from the Aedes data and forecasting this percentage for the next month, assuming the chances of Aedes presence stay constant.
+Presence assumed to follow a Bernoulli distribution ($\text{Bern}[\theta]$) and the proportion $(\theta)$ a Beta distribution ($\mathcal{B}$),
+\begin{align*}
+  \mathcal{P}_{t} &\sim \text{Bern}\l(\theta\r)\\
+  \theta & \sim \mathcal{B}(\alpha,\beta).
+\end{align*}
+Then the posterior over $(\theta)$
+\begin{align*}
+   p(\theta | \mathcal{P}_{t=1}^{t=T}) &= \prod_{t=1}^{T} p( \mathcal{P}_{t} | \theta) \times p(\theta| \alpha,\beta)\\
+                                    &= \theta^{N_{p}} \l(1-\theta\r)^{T-N_{p}} \times \theta^{\alpha-1} \l(1-\theta\r)^{\beta-1}\\
+   \theta &\sim \mathcal{B}\l( N_{p} + \alpha, T-N_{p} + \beta \r)
+\end{align*}
+where $T$ is the total number of months and $N_{p}$ the number of months Aedes was present in the training data.  
+This model, taking the training data into account, should show better performance than the data-agnostic $50/50$ model, but does not take the datas' temporal characteristics into account.
+
+\subsubsection{$1st$ order Markov model}
+
+The $1$st order Markov model ($1$MM) takes a simplified approach to modeling the single-stream Aede's temporal structure.
+Only caring whether Aedes was present/absent last month,
+\begin{equation}
+  p \l(\mathcal{P}_{t} | \mathcal{P}_{1}, \mathcal{P}_{2}, \cdots, \mathcal{P}_{t-1} \r) =  p \l(\mathcal{P}_{t} | \mathcal{P}_{t-1}\r),
+\end{equation}
+the $1$MM model forecasts the next month.
+Assuming a stationarity time series, the $1$MM needs $3$ parameters~($1$ more then the Beta model): the first parameter, $\pi$, is the probability the first month will have Aedes present; the remaining
+
+
+
+\end{document}
